@@ -1,0 +1,22 @@
+# Liskov Substitution Principle (LSP)
+
+## 1. Introduction
+The Liskov Substitution Principle states that objects of a superclass should be replaceable with objects of its subclasses without breaking the application.
+
+## 2. What does this mean?
+If `Class B` is a subclass of `Class A`, you should be able to pass an object of `Class B` into any function that expects an object of `Class A`, and the function should still behave correctly without needing to know that it received a subclass.
+
+## 3. Why is it important?
+Violating LSP leads to code that uses `isinstance()` checks everywhere, throws unexpected `NotImplementedError`s, or behaves unpredictably when polymorphism is used. It breaks trust in inheritance.
+
+## 4. Classic Violation Example: Square vs. Rectangle
+In mathematics, a Square IS-A Rectangle. But in programming, making `Square` inherit from `Rectangle` often violates LSP.
+If a function expects a `Rectangle`, it assumes it can set the `width` and `height` independently. But if you pass a `Square`, setting the `width` also sets the `height` (to keep it a square), breaking the function's expectations!
+
+## 5. How to identify LSP violations?
+- A subclass throws an exception for an operation that its parent class supports.
+- A subclass does nothing (empty implementation) for an operation its parent class supports.
+- A subclass restricts the input parameters or expands the output types in ways the parent class doesn't.
+
+## 6. Summary
+Inheritance should only be used when the subclass truly behaves exactly like the superclass, plus more. If the subclass has to "disable" or fundamentally alter the behavior of the superclass, inheritance is likely the wrong choice (consider Composition instead).
