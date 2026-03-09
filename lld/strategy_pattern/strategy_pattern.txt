@@ -1,0 +1,33 @@
+# Strategy Design Pattern
+
+## 1. Introduction
+The Strategy Pattern is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable. It allows the algorithm to vary independently from the clients that use it.
+
+## 2. Real-World Analogy
+Imagine you are building a navigation app. When a user wants to get from point A to point B, the app can calculate the route in several ways:
+- Walking route
+- Driving route
+- Public transit route
+- Cycling route
+
+Instead of having one giant class with massive `if-else` or `switch` statements to calculate routes, the Strategy pattern extracts these routing algorithms into their own separate classes (Strategies). The main app (Context) just delegates the routing work to the currently selected strategy.
+
+## 3. Structure
+- **Context**: Maintains a reference to one of the concrete strategies and communicates with this object only via the strategy interface. The Context doesn't know how the strategy executes the algorithm.
+- **Strategy (Interface/Abstract Base Class)**: Defines a common interface for all supported algorithms. The Context uses this interface to call the algorithm defined by Concrete Strategies.
+- **Concrete Strategies**: Implement different variations of an algorithm the Context uses.
+
+## 4. When to Use
+- When you have many similar classes that only differ in the way they execute some behavior.
+- When you want to isolate the business logic of a class from the implementation details of algorithms that may not be that important in the context of that logic.
+- When your class has a massive conditional operator that switches between different variants of the same algorithm.
+
+## 5. Pros and Cons
+**Pros:**
+- **Open/Closed Principle**: You can introduce new strategies without having to change the context.
+- **Separation of Concerns**: Extracts algorithm implementation details from the code that uses it.
+- **Composition over Inheritance**: Replaces inheritance with composition, making your code more flexible at runtime.
+
+**Cons:**
+- Clients must be aware of the different strategies to select the right one.
+- Increases the number of classes in the project.
