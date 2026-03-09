@@ -1,0 +1,20 @@
+# Open/Closed Principle (OCP)
+
+## 1. Introduction
+The Open/Closed Principle states that software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.
+
+## 2. What does this mean?
+- **Open for Extension**: You should be able to add new functionality or behaviors to a class.
+- **Closed for Modification**: You shouldn't have to alter existing source code to add this new behavior.
+
+## 3. Why is it important?
+When you modify existing code to add new features, you run the risk of introducing bugs into functionality that was previously working fine. By extending instead of modifying, you keep existing, tested code safe.
+
+## 4. How to achieve this?
+The most common way to adhere to OCP is through abstraction and polymorphism. 
+Instead of writing large `if/elif` or `switch` statements, you define interfaces (or abstract base classes). When a new requirement comes in, you create a new class that implements that interface, rather than adding a new `elif` branch to existing code.
+
+*(Note: The Strategy pattern you learned earlier is an excellent way to achieve OCP!)*
+
+## 5. Summary
+Write code so that you will be able to add new features just by adding new code, rather than by changing old code.
