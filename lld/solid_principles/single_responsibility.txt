@@ -1,0 +1,26 @@
+# Single Responsibility Principle (SRP)
+
+## 1. Introduction
+The Single Responsibility Principle (SRP) states that a class should have one, and only one, reason to change. In other words, a class should have only one job or responsibility.
+
+## 2. Why is it important?
+When a class has multiple responsibilities:
+- It becomes harder to understand, maintain, and test.
+- Changes to one responsibility can inadvertently affect the other responsibilities (coupling).
+- Code reuse becomes difficult because responsibilities are tangled together.
+
+## 3. Real-World Analogy
+Think of a restaurant. 
+- The Chef is responsible for cooking the food.
+- The Waiter is responsible for taking orders and delivering food to the table.
+- The Cashier is responsible for handling payments.
+
+If you had one person (a God object) doing all three jobs, they would be overwhelmed, make mistakes, and the restaurant would be inefficient. Separating these roles is SRP in action.
+
+## 4. How to identify SRP violations?
+Ask yourself: "What does this class do?" 
+If your answer includes the word "and", you might be violating SRP.
+Example: "This class manages user data AND sends email notifications." -> This should be two classes.
+
+## 5. Summary
+Keep your classes small, focused, and dedicated to a single logical task.
