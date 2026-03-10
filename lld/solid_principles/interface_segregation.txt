@@ -1,0 +1,27 @@
+# Interface Segregation Principle (ISP)
+
+## 1. Introduction
+The Interface Segregation Principle states that no client should be forced to depend on methods it does not use.
+
+## 2. What does this mean?
+Instead of creating one large, "fat" interface containing dozens of methods, you should create several smaller, highly-specialized interfaces. 
+
+## 3. Why is it important?
+When you have a large interface, any class that implements it must provide an implementation for *all* the methods, even if they don't make sense for that class.
+- This leads to empty methods (`pass` in Python) or throwing `NotImplementedError`s (which also violates the Liskov Substitution Principle!).
+- If you change a method signature in the "fat" interface, you might have to update classes that don't even use that method.
+
+## 4. Real-World Analogy
+Think of a Multi-Function Printer (MFP) that can Print, Scan, and Fax.
+If you define one `Machine` interface with `print()`, `scan()`, and `fax()` methods:
+- An old, simple printer that only prints would be forced to implement `scan()` and `fax()` (probably throwing errors if someone tries to use them).
+
+Instead, break it down:
+- `Printer` interface (`print()`)
+- `Scanner` interface (`scan()`)
+- `Fax` interface (`fax()`)
+
+Now, the old printer only implements `Printer`. The MFP implements all three!
+
+## 5. Summary
+Keep your interfaces (or Abstract Base Classes) small and focused on a single capability or role.
