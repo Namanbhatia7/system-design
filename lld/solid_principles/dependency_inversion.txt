@@ -1,0 +1,19 @@
+# Dependency Inversion Principle (DIP)
+
+## 1. Introduction
+The Dependency Inversion Principle states that high-level modules should not depend on low-level modules. Both should depend on abstractions (e.g., interfaces). Further, abstractions should not depend on details. Details should depend on abstractions.
+
+## 2. What does this mean?
+Instead of your business logic (high-level) directly importing and creating instances of database clients, file readers, or email senders (low-level details), you define interfaces for them. Your high-level logic uses the interfaces, and the low-level modules implement those interfaces.
+
+## 3. Why is it important?
+When high-level modules depend directly on low-level modules:
+- You cannot easily test the high-level module (mocking becomes hard).
+- If you decide to swap out a database (e.g., switch from MySQL to MongoDB), you have to rewrite the high-level business logic.
+- Code becomes tightly coupled.
+
+## 4. How to achieve this?
+Dependency Injection! You pass the required implementation (which conforms to an interface) into the class via its constructor or a setter method.
+
+## 5. Summary
+Depend on abstractions, not concretions. Let the caller (the client code) provide the concrete implementation.
