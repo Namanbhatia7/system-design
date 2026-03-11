@@ -1,0 +1,43 @@
+# Observer Design Pattern
+
+## 1. Introduction
+The Observer Pattern is a behavioral design pattern that defines a one-to-many dependency between objects. When one object (the Subject) changes state, all its dependents (Observers) are notified and updated automatically.
+
+## 2. Real-World Analogy
+Think of a news channel and its subscribers:
+- The **news channel** (Subject) publishes breaking news.
+- **Subscribers** (Observers) have signed up to receive updates. They don't poll the channel; they wait to be notified.
+- When the channel publishes a new story, it notifies every subscriber. Each subscriber reacts in their own way (e.g., read on phone, watch on TV, get an alert).
+
+The channel does not need to know the internal logic of each subscriber. It only needs to know that they implement a "notify" or "update" contract.
+
+## 3. Structure
+- **Subject (Observable)**: Maintains a list of observers. Provides methods to attach, detach, and notify observers. When its state changes, it calls `notify()` on all observers.
+- **Observer (Interface)**: Defines an interface (e.g., `update()`) that concrete observers must implement. The subject calls this method when state changes.
+- **ConcreteSubject**: The actual object whose state is of interest. When its state changes, it notifies all registered observers.
+- **ConcreteObserver**: Implements the Observer interface. Holds a reference to the subject (optional, for pull model). Reacts when notified.
+
+## 4. Push vs Pull Model
+- **Push**: The subject sends the new state (or the changed data) as an argument to `update()`. Observers receive everything they need in the notification. Simpler for observers; subject must know what data to send. (See Examples 1 and 2 in observer_pattern.py.)
+- **Pull**: The subject only notifies that something changed and passes a reference to itself (e.g. `observer.update(self)`). Observers then call getters on the subject (e.g. `subject.get_theme()`) to pull only the data they need. More flexible; subject doesn't need to know what each observer needs. (See Example 3: Config Store in observer_pattern.py.)
+
+## 5. When to Use
+- When a change to one object requires changing others, and you don't know how many objects need to be updated.
+- When an object should be able to notify other objects without making assumptions about who those objects are (loose coupling).
+- Event handling, MVC (Model notifies Views), reactive UIs, pub/sub systems.
+
+## 6. Best Practices
+- Prefer defining a clear Observer interface (e.g., abstract base class) so the subject depends on abstraction, not concrete observer types.
+- Consider thread safety if the subject can be updated from multiple threads.
+- Allow observers to unsubscribe (detach) to avoid memory leaks and unnecessary notifications.
+- Decide push vs pull based on your use case; document which model you use.
+
+## 7. Pros and Cons
+**Pros:**
+- Loose coupling between subject and observers; subject knows only the observer interface.
+- Supports broadcast communication; adding new observers does not require changing the subject (Open/Closed Principle).
+- Dynamic relationships; observers can attach and detach at runtime.
+
+**Cons:**
+- Unexpected updates: observers don't know about each other, so the order of notifications and side effects can be hard to reason about.
+- If not careful, a bug in one observer can affect others or the subject (consider try/except around notify calls).
