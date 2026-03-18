@@ -1,0 +1,40 @@
+# Decorator Design Pattern
+
+## 1. Introduction
+The Decorator Pattern is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors. It provides a flexible alternative to subclassing for extending functionality.
+
+## 2. Real-World Analogy
+Think of ordering coffee at a café:
+- **Base**: A simple espresso.
+- **Decorator**: You can add milk (one wrapper), then whipped cream (another wrapper), then caramel drizzle (another wrapper).
+- Each "add-on" wraps what you already have. You pay for espresso + milk + cream + caramel, but you did not need a separate class for every combination (EspressoWithMilk, EspressoWithMilkAndCream, ...).
+
+## 3. Structure
+- **Component (Interface)**: Defines the common interface for objects that can have responsibilities added dynamically.
+- **ConcreteComponent**: The object to which additional responsibilities can be attached.
+- **Decorator (Abstract)**: Maintains a reference to a Component and defines an interface that conforms to Component's interface.
+- **ConcreteDecorator**: Adds responsibilities to the component by overriding behavior and delegating to the wrapped component.
+
+## 4. When to Use
+- When you need to add responsibilities to individual objects dynamically and transparently, without affecting other objects.
+- When subclassing would explode the number of classes (combinatorial explosion of features).
+- When responsibilities should be removable at runtime.
+- When you want to compose behaviors in any order.
+
+## 5. Decorator vs Inheritance
+- **Inheritance**: Fixed at compile time; every combination may need its own subclass.
+- **Decorator**: Compose features at runtime by stacking wrappers; same interface as the wrapped object.
+
+## 6. Python Note: @decorator Functions
+Python's `@some_decorator` on functions is a *different* (but related) idea: it wraps functions. The **Gang of Four Decorator pattern** is about wrapping *objects* that share a common interface. Both ideas wrap something to add behavior.
+
+## 7. Pros and Cons
+**Pros:**
+- Single Responsibility: each decorator class does one thing.
+- Open/Closed: extend behavior without modifying existing component code.
+- Compose behaviors in any order (with care).
+
+**Cons:**
+- Many small classes can make the design harder to follow.
+- Order of decorators may matter (e.g., logging before vs after encryption).
+- Client code must treat decorated and undecorated objects uniformly via the Component interface.
