@@ -1,0 +1,50 @@
+# Factory Design Patterns
+
+## 1. Introduction
+Factory patterns are creational patterns that deal with object creation. Instead of using `new` (or direct constructor calls), you delegate creation to a factory. This centralizes creation logic and keeps client code decoupled from concrete classes.
+
+## 2. Three Variants
+
+### Simple Factory (Static Factory)
+- A single function or class method that creates and returns an object based on a parameter (e.g. a string or enum).
+- Not a formal GoF pattern, but very common and a good first step.
+- **Pro**: Centralizes creation; client doesn't need to know concrete class names.
+- **Con**: Adding a new type usually means modifying the factory (if/elif or switch).
+
+### Factory Method
+- Define an interface for creating an object, but let subclasses decide which class to instantiate.
+- A class defers instantiation to subclasses by calling a method that subclasses override (the "factory method").
+- **Pro**: Open/Closed — add new products by adding new creator subclasses; client code depends on the abstract product.
+- **Con**: More classes (one creator per product variant, typically).
+
+### Abstract Factory
+- Provides an interface for creating *families* of related or dependent objects without specifying their concrete classes.
+- Use when you have multiple product types and multiple variants (e.g. "Light theme" vs "Dark theme" each with Button, TextBox, etc.).
+- **Pro**: Ensures products from the same family are used together; swapping families is easy.
+- **Con**: Adding a new product type to the family requires changing the abstract factory interface and all concrete factories.
+
+## 3. When to Use Which?
+- **Simple Factory**: Few product types, creation logic in one place, no need for extensibility via subclasses.
+- **Factory Method**: One product hierarchy; you want different "creators" to produce different concrete products without client code knowing the concrete type.
+- **Abstract Factory**: Multiple related product hierarchies (e.g. UI widgets per theme); client should get a consistent family.
+
+## 4. Structure (Factory Method)
+- **Product** (interface): The type of object produced.
+- **ConcreteProduct**: Implementations of Product.
+- **Creator** (abstract or base): Declares the factory method that returns a Product. May call it from other methods.
+- **ConcreteCreator**: Overrides the factory method to return a ConcreteProduct.
+
+## 5. Practice (factory_pattern_practice.py)
+The practice file has **three separate exercises**:
+- **Part 1 — Simple Factory**: `create_logger(kind)` returning `ConsoleLogger`, `FileLogger`, or `RemoteLogger`.
+- **Part 2 — Factory Method**: `EnemySpawner` subclasses override `create_enemy()`; `spawn_wave()` uses the factory method.
+- **Part 3 — Abstract Factory**: `ThemeFactory` (`LightThemeFactory`, `DarkThemeFactory`) creates matching `Toolbar` + `Dialog` pairs; `render_app_screen(factory)` is client code.
+
+## 6. Pros and Cons (general)
+**Pros:**
+- Loose coupling: clients depend on abstractions (Product interface), not concrete classes.
+- Single place for creation logic (Simple/Factory Method) or for family creation (Abstract Factory).
+- Easy to swap implementations (e.g. testing with mock factories).
+
+**Cons:**
+- More classes and indirection; can feel like overkill for very simple creation.
